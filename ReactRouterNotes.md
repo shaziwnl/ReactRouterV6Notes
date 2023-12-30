@@ -64,11 +64,11 @@ export default function Dashboard() {
     )
 }
 What this will do is – it will display the dashboard content on all the routes
-YOU NEED AN OUTLET IN THE PARENT COMPONENT/ROUTE
-WHICH WILL THEN MATCH THE CHILD COMPONENT/ROUTE
+// YOU NEED AN OUTLET IN THE PARENT COMPONENT/ROUTE
+// WHICH WILL THEN MATCH THE CHILD COMPONENT/ROUTE
 Example - on the /host/income route, we have the dashboard and the income elements displayed
 ```
-##### Note - Nesting is only useful if you have some shared UI between those routes (eg - a navbar, a header, a footer, etc.assssssdawqqwe3aszwee)
+##### Note - Nesting is only useful if you have some shared UI between those routes (eg - a navbar, a header, a footer, etc.)
 ### Better Nested Routes
 ```jsx
 <Route path="host" element={<HostLayout />}>
@@ -81,8 +81,8 @@ while the dashboard component is the index route
 ```
 ### Absolute vs Relative Paths
 ```jsx
-// Routes starting with '/' are absolute
-// Routes that do not begin with '/' are relative to the parent route (this is usually used in nested routes)
+Routes starting with '/' are absolute
+Routes that do not begin with '/' are relative to the parent route (this is usually used in nested routes)
 
 <Route path="/" />
 <Route path="/login" />
@@ -105,10 +105,9 @@ isPending properties to determine className and style properties of the link<p>
 >
     Host    
 </NavLink>
-There is also an isPending property which can be used
-Instead of classname, we can directly use style and use the same isActive and
-isPending properties. 
-Instead of passing the classname, we would directly enter the styles
+There is also an isPending and isTransitioning property which can be used
+Instead of classname, we can directly use style and use the same isActive,
+isPending and isTransitioning properties. 
 ```
 ### Hook – useSearchParams 
 ```jsx
