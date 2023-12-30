@@ -95,6 +95,9 @@ while the dashboard component is the index route
 // Here, the login route is relative to the "/" absolute route
 ```
 ### NavLinks
+<p>Navlinks are a solution such that if we are on a specific link, then we can pass isActive and
+isPending properties to determine className and style properties of the link<p>
+
 ```jsx
 <NavLink 
     to="/host"
