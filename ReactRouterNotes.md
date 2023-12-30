@@ -96,7 +96,8 @@ Routes that do not begin with '/' are relative to the parent route (this is usua
 ```
 ### NavLinks
 <p>Navlinks are a solution such that if we are on a specific link, then we can pass isActive and
-isPending properties to determine className and style properties of the link<p>
+isPending properties to determine className and style properties of the link,
+just use NavLink instead of Link to create this effect<p>
 
 ```jsx
 <NavLink 
