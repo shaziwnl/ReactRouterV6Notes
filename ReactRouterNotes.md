@@ -108,7 +108,19 @@ just use NavLink instead of Link to create this effect<p>
 </NavLink>
 There is also an isPending and isTransitioning property which can be used
 Instead of classname, we can directly use style and use the same isActive,
-isPending and isTransitioning properties. 
+isPending and isTransitioning properties.
+```
+##### A PROBLEM - Navlinks match all active routes, so we would have the active-link stlye applied to all the routes such as / and /host in the above example
+##### What we want is to have the matching to end at a particular point if a more rested route matches the URL. Solution? the "end" prop
+```jsx
+<NavLink 
+    to="/host"
+    end
+    className={({isActive}) => isActive ? "active-link" : null}
+>
+    Host    
+</NavLink>
+Now, if a more rested route matches, the /host route will not match, therefore we will get the desired styling
 ```
 ### Hook – useSearchParams 
 ```jsx
