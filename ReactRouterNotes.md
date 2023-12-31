@@ -122,6 +122,25 @@ isPending and isTransitioning properties.
 </NavLink>
 Now, if a more rested route matches, the /host route will not match, therefore we will get the desired styling
 ```
+### Relative to path vs Relative to route
+```jsx
+Lets say you have the following routes
+<Route to="host">
+    <Route to="something" />
+    <Route to="something/:id" />
+</Route>
+
+// In host/something/id =>
+<Link to="..">Something</Link> // This will take you to /host instead of /host/something as the link is relative to the route heirarchy
+
+// To get the desired functionality, we need
+<Link
+    to=".."
+    relative="path">
+    Something
+</Link>
+// We have made the link relative to the path instead of the route so we get what we want
+```
 ### Hook – useSearchParams 
 ```jsx
 Const [searchParam, setSearchParam] = useSearchParams()
