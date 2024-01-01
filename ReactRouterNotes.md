@@ -141,6 +141,23 @@ Lets say you have the following routes
 </Link>
 // We have made the link relative to the path instead of the route so we get what we want
 ```
+### Hook – useOutletContext
+```jsx
+If you want to pass state (context) to an Outlet
+// In the parent component =>
+<Outlet context={[data, setData]} />
+
+// In the child component =>
+import { useOutletContext } from "react-router-dom"
+
+export default function ChildComponent() {
+    const [data, setData] = useOutletContext();
+
+    return (
+        <h1>{data}</h1>
+    )
+}
+```
 ### Hook – useSearchParams 
 ```jsx
 Const [searchParam, setSearchParam] = useSearchParams()
