@@ -168,17 +168,29 @@ www.example.com/?type=something&filter=anotherthing
 ```jsx
 Const [searchParam, setSearchParam] = useSearchParams()
 Const typeFilter = searchParams.get(key)
+```
+### Filtering using search params
+```jsx
+const colourFilter = searchParams.get("type")
+// Suppose you have an array called elements and you want to filter based on colour
+const displayed = colourFilter ? elements.filter((element) => element.colour == colourFilter) : elements 
+const displayedMapped = displayed.map((element) => <h1>{element.colour}</h1>)
+```
+### Buttons to filter
+```jsx
+<Link to="?type=happy">Happy</Link>
 
-Below is an example of filtering- 
-Example – const displayed = typeFilter ? 
-characters.filter(char => char.type.toLowerCase() === typefilter) :  characters
+// Clear Filters
+<Link to="."> Clear Filters </Link> 
 
-For buttons to filter, we can simply <Link to=”?type={whatever}”>{Whatever}</Link>
-<Link to="/"> Clear Filters </Link> 
-<Button onClick={ () => setSearchParams({ type: “jedi” }) }></Button>
-(Basically we need to pass an object to setSearchParams with key value pairs)
+// Better method - Using the setSearchParams setter function
+// setSearchParams is extremely flexible so we can do the following and they are all equivalent
+<button onClick={() => setSearchParams("?type=happy")}></button>
+<button onClick={() => setSearchParams("type=happy")}></button> // Without question mark
+
+// Best Practice =>
+<button onClick={() => setSearchParams({ type: "happy" })}></button>
 
 State in Links – 
 <Link to="/" state={ { key: value, key2: value2} }>
-
 ```
