@@ -145,7 +145,7 @@ Lets say you have the following routes
 ```jsx
 If you want to pass state (context) to an Outlet
 // In the parent component =>
-<Outlet context={[data, setData]} />
+<Outlet context={ [data, setData] } />
 
 // In the child component =>
 import { useOutletContext } from "react-router-dom"
@@ -157,6 +157,12 @@ export default function ChildComponent() {
         <h1>{data}</h1>
     )
 }
+```
+### Search/Query Params
+```jsx
+If you want to filter, sort, paginate, etc. then you might want to use query params which appear like
+www.example.com/?type=something&filter=anotherthing
+// Here type and filter are the query parameters
 ```
 ### Hook – useSearchParams 
 ```jsx
