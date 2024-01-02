@@ -190,7 +190,26 @@ const displayedMapped = displayed.map((element) => <h1>{element.colour}</h1>)
 
 // Best Practice =>
 <button onClick={() => setSearchParams({ type: "happy" })}></button>
-
-State in Links – 
+```
+### State in Links
+```jsx
 <Link to="/" state={ { key: value, key2: value2} }>
+```
+### Hook - useLocation
+```jsx
+// If you passed in state in a link, you can get that state using the useLocation hook
+const location = useLocation();
+console.log(location) // logs {pathname: "xyz/xyz", search: "", hash: "", state: {key: value, key2: value2}, key: "xyz"}
+// This can be useful for LOTS of reasons
+```
+### Custom 404 Page
+```jsx
+// We need a 'catch-all' route if a non-existent route is visited
+<Routes>
+    <Route path="/home" element={<Home />} />
+    <Route path="/about" element={<About />} />
+    <Route path="*" element={<h1>Page not found!</h1>} />
+</Routes>
+// NOTE - React router is smart enough that it will first check all the routes with the URL and only if no route matches will it 
+// go to the catch-all route, but it is best to put it at the bottom anyway
 ```
