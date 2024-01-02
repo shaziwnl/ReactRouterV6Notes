@@ -39,7 +39,7 @@ function VanDetail() {
     }, [params.id]);
 
     // We put this in a useEffect to avoid infinite re-renders
-    // We have params.id as a dependency but we don't need it (I think)
+    // We have params.id as a dependency but we don't need it (I think )
 }
 ```
 ### Nested Routes
