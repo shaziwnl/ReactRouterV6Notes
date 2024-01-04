@@ -121,8 +121,7 @@ isPending and isTransitioning properties.
 <NavLink 
     to="/host"
     end
-    className={({isActive}) => isActive ? "active-link" : null}
->
+    className={({isActive}) => isActive ? "active-link" : null}>
     Host    
 </NavLink>
 Now, if a more rested route matches, the /host route will not match, therefore we will get the desired styling
@@ -171,8 +170,10 @@ www.example.com/?type=something&filter=anotherthing
 ```
 ### Hook – useSearchParams 
 ```jsx
+// Assume we have the url - www.example.com/?type=happy&filter=none
 Const [searchParam, setSearchParam] = useSearchParams()
-Const typeFilter = searchParams.get(key)
+Const typeFilter = searchParams.get("type")
+console.log(typeFilter) // logs "happy" to the console
 ```
 ### Filtering using search params
 ```jsx
@@ -195,10 +196,12 @@ const displayedMapped = displayed.map((element) => <h1>{element.colour}</h1>)
 
 // Best Practice =>
 <button onClick={() => setSearchParams({ type: "happy" })}></button>
+
+// Note, we can use buttons and links to achieve the same effect
 ```
 ### State in Links
 ```jsx
-<Link to="/" state={ { key: value, key2: value2} }>
+<Link to="/" state={ { key: value, key2: value2} } /> // See below for how to get this state
 ```
 ### Hook - useLocation
 ```jsx
@@ -213,15 +216,8 @@ console.log(location) // logs {pathname: "xyz/xyz", search: "", hash: "", state:
 <Routes>
     <Route path="/home" element={<Home />} />
     <Route path="/about" element={<About />} />
-    <Route path="*" element={<h1>Page not found!</h1>} />
+    <Route path="*" element={<h1>Page not found!</h1>} /> 
 </Routes>
 // NOTE - React router is smart enough that it will first check all the routes with the URL and only if no route matches will it 
 // go to the catch-all route, but it is best to put it at the bottom anyway
-```
-### Hook - useLocation
-```jsx
-// If you passed in state in a link, you can get that state using the useLocation hook
-const location = useLocation();
-console.log(location) // logs {pathname: "xyz/xyz", search: "", hash: "", state: {key: value, key2: value2}, key: "xyz"}
-// This can be useful for LOTS of reasons
 ```
