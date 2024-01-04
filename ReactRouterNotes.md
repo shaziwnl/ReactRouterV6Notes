@@ -16,8 +16,10 @@ function app {
 ```
 ### Route Params
 ```jsx
-<Route path="vans/:id" element={<VanDetail />} /> 
+<Route path="page/:id" element={<Component />} /> 
 // The ':id' makes this a param
+// Multiple params
+<Route path="page/:id/:name/:mood" element={<Component />} /> 
 ```
 ### useParams Hook
 ```jsx
