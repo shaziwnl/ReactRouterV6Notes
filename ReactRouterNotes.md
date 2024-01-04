@@ -7,6 +7,8 @@ function app {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<SignUp />} />
+                <Route path="login" element={<Login />} />
+                <Route path="*" element={<NotFound />} />
             </ Routes>
         </ BrowserRouter>
 	)
@@ -39,7 +41,7 @@ function VanDetail() {
     }, [params.id]);
 
     // We put this in a useEffect to avoid infinite re-renders
-    // We have params.id as a dependency but we don't need it (I think )
+    // We have params.id as a dependency but we don't need it (I think)
 }
 ```
 ### Nested Routes
@@ -212,4 +214,11 @@ console.log(location) // logs {pathname: "xyz/xyz", search: "", hash: "", state:
 </Routes>
 // NOTE - React router is smart enough that it will first check all the routes with the URL and only if no route matches will it 
 // go to the catch-all route, but it is best to put it at the bottom anyway
+```
+### Hook - useLocation
+```jsx
+// If you passed in state in a link, you can get that state using the useLocation hook
+const location = useLocation();
+console.log(location) // logs {pathname: "xyz/xyz", search: "", hash: "", state: {key: value, key2: value2}, key: "xyz"}
+// This can be useful for LOTS of reasons
 ```
