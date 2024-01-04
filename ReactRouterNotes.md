@@ -16,10 +16,10 @@ function app {
 ```
 ### Route Params
 ```jsx
-<Route path="page/:id" element={<Component />} /> 
+<Route path="/page/:id" element={<Component />} /> 
 // The ':id' makes this a param
 // Multiple params
-<Route path="page/:id/:name/:mood" element={<Component />} /> 
+<Route path="/page/:id/:name/:mood" element={<Component />} /> 
 ```
 ### useParams Hook
 ```jsx
@@ -27,7 +27,7 @@ import { useParams } from "react-router-dom"
 
 function VanDetail() {
     const params = useParams();
-    // Assume we visited /vans/2
+    // Assume we visited /page/2 (Assume we have a "/page/:id" route)
     console.log(params.id) // logs "2" to the console
 }
 
@@ -62,8 +62,9 @@ export default function Dashboard() {
     // Whatever you want
     return (
         <>
-            <h1>This is the Dashboard</h1>
+            <nav>Add a navbar maybe</nav>
             <Outlet />
+            <footer>Add a footer maybe</footer>
         </>
     )
 }
