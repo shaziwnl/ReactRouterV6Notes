@@ -37,7 +37,7 @@ function VanDetail() {
     const [vanData, setVanData] = useState(null);
 
     useEffect(() => {
-        fetch(`backend/vans/${params.id}`)
+        fetch(`backend/users/${params.id}`)
             .then(res => res.json())
             .then(data => setData(data))
     }, [params.id]);
