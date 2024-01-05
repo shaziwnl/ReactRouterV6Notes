@@ -221,3 +221,69 @@ console.log(location) // logs {pathname: "xyz/xyz", search: "", hash: "", state:
 // NOTE - React router is smart enough that it will first check all the routes with the URL and only if no route matches will it 
 // go to the catch-all route, but it is best to put it at the bottom anyway
 ```
+### Loaders
+```jsx
+// In general -> Better to use loader instead of useEffects to fetch data
+// React can delay the rendering of the page until the loader is done 
+// First, we have to "subscribe" to this feature
+// Replace
+<Routes>
+    <Route path="/home" element={<Home />} />
+    <Route path="/about" element={<About />} />
+    <Route path="*" element={<h1>Page not found!</h1>} /> 
+</Routes>
+
+// With
+const router = createBrowserRouter(createRouteFromElements(
+    <Route path="/home" element={<Home />} loader={homeLoader} />
+    <Route path="/about" element={<About />} />
+    <Route path="*" element={<h1>Page not found!</h1>} /> 
+))
+// Put a loader in whichever route you are fetching data
+
+function App() {
+    return (
+        <RouterProvider router={router} />
+    )
+}
+
+// Remember to import RouterProvider, createBrowserRouter, createRouteFromElements
+```
+### Loader Setup
+```jsx
+// In the component where you are fetching data =>
+export function loader() {
+    return "data here"
+}
+
+export default function Component() {
+    return <h1>Hi!</h1>
+}
+
+// In App.jsx (or wherever you have your routes)
+import Component, { loader as componentLoader } from "./components/Component"
+
+const router = createBrowserRouter(createRouteFromElements(
+    <Route path="/home" element={<Component />} loader={componentLoader} />
+))
+
+function App() {
+    return (
+        <RouterProvider router={router} />
+    )
+}
+```
+### Hook - useLoaderData
+```jsx
+// In Component.jsx =>
+
+export function loader() {
+    return "data wohoo!"
+}
+
+export default function Component() {
+    const data = useLoaderData()
+    console.log(data) // Logs "data wohoo!" to the console
+    // (Assuming everything is correct in App.jsx)
+}
+```
