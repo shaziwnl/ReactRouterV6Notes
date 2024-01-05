@@ -287,3 +287,31 @@ export default function Component() {
     // (Assuming everything is correct in App.jsx)
 }
 ```
+### Error handling with loaders and routes
+```jsx
+// If your Component.jsx throws for any reason (failed to get data, etc.)
+// Then you can pass an errorElement prop to the route
+<Route path="/home" 
+    element={<Component />} 
+    loader={componentLoader}
+    errorElement={<h1>There was an error</h1>} />
+// Now if Component throws, we will see an h1 with the message there was an err
+```
+A problem - We want to give actual information about the error
+Solution - useRouteError hook
+### Hook - useRouteError
+```jsx
+// Instead of errorElement={<h1>Error occurred</h1>}
+// Use an Error component
+// In Error.jsx =>
+import { useRouteError } from "react-router-dom"
+
+export default function Error() {
+    const error = useRouteError()
+    console.log(error) // logs {message: "message", statusText: "text", status: number}
+    return (
+        <h1>{error.message}</h1>
+    )
+}
+// NOTE - We could have the errorElement prop in a parent route and it would still work in the child routes (play around with this lol)
+```
