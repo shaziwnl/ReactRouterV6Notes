@@ -225,6 +225,8 @@ console.log(location) // logs {pathname: "xyz/xyz", search: "", hash: "", state:
 ```jsx
 // In general -> Better to use loader instead of useEffects to fetch data
 // React can delay the rendering of the page until the loader is done 
+// First get data, then go to the route is the main idea
+// No requirement of a loading or error state management
 // First, we have to "subscribe" to this feature
 // Replace
 <Routes>
@@ -233,7 +235,7 @@ console.log(location) // logs {pathname: "xyz/xyz", search: "", hash: "", state:
     <Route path="*" element={<h1>Page not found!</h1>} /> 
 </Routes>
 
-// With
+// With (everything between <Routes> <Routes />)
 const router = createBrowserRouter(createRouteFromElements(
     <Route path="/home" element={<Home />} loader={homeLoader} />
     <Route path="/about" element={<About />} />
@@ -299,7 +301,7 @@ export default function Component() {
 ```
 A problem - We want to give actual information about the error
 Solution - useRouteError hook
-### Hook - useRouteError
+### Hook - useRouteError (Only available with data routers (loaders))
 ```jsx
 // Instead of errorElement={<h1>Error occurred</h1>}
 // Use an Error component
@@ -314,4 +316,35 @@ export default function Error() {
     )
 }
 // NOTE - We could have the errorElement prop in a parent route and it would still work in the child routes (play around with this lol)
+```
+### Protected Routes
+Central idea - User should be logged in to access a specific page/route
+```jsx
+// Solution - Wrap the route you want to protect in an AuthRequired layout route 
+// which either renders the Outlet or redirects the user to the home/login page
+
+// In AuthRequired.jsx =>
+export default function AuthRequired() {
+    const isLoggedIn = true; // fake auth for now
+    if (!isLoggedIn) {
+        return <Navgate to="/login" />
+    } 
+    return <Outlet />
+}
+// NOTE - This approach is without data loaders' functionalities
+```
+### Navigate Component
+```jsx
+// Enables us to navigate a user from one route to another
+<Navigate to="wherever" />
+```
+### Approach using loaders
+```jsx
+export function loader() {
+    const isLoggedIn = false; // fake auth for now again
+    if (!isLoggedIn) {
+        return redirect("/login") // we can also throw redirect("/login")
+    } // Note, redirect is not the same as Navigate as we are not in a component here
+    // Fetch your data now and do whatever you want
+}
 ```
