@@ -348,3 +348,8 @@ export function loader() {
     // Fetch your data now and do whatever you want
 }
 ```
+### Disadvantage using authentication in loaders
+We have to include authentication in EVERY loader function <br>
+Why? because loaders run parallely and not first in the parent, then in the child and so on <br>
+This creates the requirement to have authentication in every loader so that sensitive info/data is not exposed if the child route gets some data that should not be accessible
+
