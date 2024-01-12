@@ -352,4 +352,11 @@ export function loader() {
 We have to include authentication in EVERY loader function <br>
 Why? because loaders run parallely and not first in the parent, then in the child and so on <br>
 This creates the requirement to have authentication in every loader so that sensitive info/data is not exposed if the child route gets some data that should not be accessible
-
+### Hook - useNavigate
+```jsx
+// Remember, this is different from redirect as hooks can be used at the top level of components
+// It will not be useful outside of the component
+const navigate = useNavigate()
+navigate("/dashboard", { replace: true }) // What does replace do?
+// Im not quite sure :D 
+```
