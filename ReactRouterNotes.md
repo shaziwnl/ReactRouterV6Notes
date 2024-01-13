@@ -360,3 +360,27 @@ const navigate = useNavigate()
 navigate("/dashboard", { replace: true }) // What does replace do?
 // Im not quite sure :D 
 ```
+### Forms and Actions
+Forms in react are... hard to manage, but we actually have access to a Form element in react router
+(If we are using loaders and data routes)
+```jsx
+// Replace <form></form> with <Form method="post"></Form>
+// In Component.jsx =>
+export async function action(obj) {
+    // Do something, You have access to an object which has the following structure
+    // {request: Request {}, params: {}}
+    const formData = await obj.request.formData();
+    const email = formData.get("email"); // name property of the input (IMPORTANT)
+    const password = formData.get("password");
+    console.log(email, password) // Works as expected
+}
+
+// In App.jsx =>
+import { action as loginAction } from "./components/Login"
+<Route
+    path="/login"
+    element={<Login />}
+    loader={/* loader here */}
+    action={loginAction}
+/>
+```
