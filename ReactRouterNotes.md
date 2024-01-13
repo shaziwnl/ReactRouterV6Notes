@@ -384,3 +384,19 @@ import { action as loginAction } from "./components/Login"
     action={loginAction}
 />
 ```
+### Hook - useActionData
+```jsx
+// When using data routes, we can useActionData like we would useLoaderData
+const data = useActionData(); // gives us the whatever was returned by the action function :) 
+```
+### Hook - useNavigation
+```jsx
+// Consists of many properties, one of which is state, has "idle" and "submitting" states
+// We do not need to track the state of the application because of this hook :D
+const navigation = useNavigation()
+const status = navigation.state()
+```
+<h4>Not adding in detail usage since it is pretty intuitive and documentation is good</h4>
+```jsx
+
+```
