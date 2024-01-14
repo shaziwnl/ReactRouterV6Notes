@@ -13,11 +13,9 @@
 - PDF
 <p>Feel free to print the dark version of the html page to get dark mode pdf</p>
 
-# Demo
-<img src="https://github.com/shaziwnl/pennapps-client/assets/121330440/49a0043f-df05-485e-b2f2-6dda74e891c1" width="700" height="700">
-
-- Note that Grammarly didn't correct non-contextual errors like 'principle' -> 'principal'
-
+## Acknowledgements
+The topics covered in these notes have been heavily inspired by Scrimba's React Router V6 course
+<a href="https://scrimba.com/learn/reactrouter6">
 ## Technologies Used
 - HTML/CSS
 - JavaScript (React)
