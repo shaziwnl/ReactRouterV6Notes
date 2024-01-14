@@ -397,6 +397,58 @@ const navigation = useNavigation()
 const status = navigation.state()
 ```
 <h4>Not adding in detail usage since it is pretty intuitive and documentation is good</h4>
-```jsx
 
+## Suspense
+Sometimes, using data routes leads to a poor UI even though it improves the developer experience
+This is why we may opt to use Suspense
+
+### Await, defer 
+```jsx
+import { defer, Await } from "react-router-dom"
+
+export async function loader() {
+    const promise = getData(); // Not awaited, so we have a promise
+    return defer({data: dataPromise});
+}
+
+export default function Component() {
+    const loaderData = useLoaderData();
+    console.log(loaderData); // Logs {promiseData: Promise {}} to the console
+
+    return (
+        <Await resolve={loaderData.weather}>
+            {(loadedWeather) => {
+                const iconUrl =
+                    `http://openweathermap.org/img/wn/${loadedWeather.weather[0].icon}@2x.png`
+                return (
+                    <>
+                        <h3>{loadedWeather.main.temp}ºF</h3>
+                        <img src={iconUrl} />
+                    </>
+                )
+            }}
+        </Await>
+    )
+}
+// The above example has been taken from scrimba.com
+```
+### Suspense component
+```jsx
+// The above will give us an error... for now
+import React, { Suspense } from "react"
+// We can simple wrap whatever we are awaiting and get the desired result
+<React.Suspense /* or just Suspense since we imported it */ fallback={<h1>Loading...</h1>} /* fallback is just the loading state */>
+    <Await resolve={loaderData.weather}>
+        {(loadedWeather) => {
+            const iconUrl =
+                `http://openweathermap.org/img/wn/${loadedWeather.weather[0].icon}@2x.png`
+            return (
+                <>
+                    <h3>{loadedWeather.main.temp}ºF</h3>
+                    <img src={iconUrl} />
+                </>
+            )
+        }}
+    </Await>
+</React.Suspense>
 ```
