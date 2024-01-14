@@ -2,8 +2,7 @@
 
 ## Table of Contents
 * [Files Provided](#files-provided)
-* [Technologies Used](#technologies-used)
-* [Project Status](#project-status)
+* [Acknowledgements](#acknowledgements)
 * [Contact](#contact)
 <!-- * [License](#license) -->
 
@@ -18,20 +17,7 @@ The topics covered in these notes have been heavily inspired by Scrimba's React 
 <a href="https://scrimba.com/learn/reactrouter6">Scrimba</a> <br>
 The notes were originally created in markdown, a VSCode extension by 'yzane' was used to generate the HTML page. Check it out 
 <a href="https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf">here</a>
-## Technologies Used
-- HTML/CSS
-- JavaScript (React)
-- Python (Flask - WSGI server with Waitress)
-
-
-## Project Status
-Project is *in development*
-
-## Improvements
-- Refining the 'verbose' route
-
 
 ## Contact
 Sharang Goel: sharang.goel@uwaterloo.ca \
-Hetarth Mahida: hetarthmahida@gmail.com \
-Pranav Vyas: 1pranavvyas@gmail.com
+
