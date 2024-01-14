@@ -16,8 +16,8 @@
 ## Acknowledgements
 The topics covered in these notes have been heavily inspired by Scrimba's React Router V6 course. Check out
 <a href="https://scrimba.com/learn/reactrouter6">Scrimba</a> <br>
-The notes were originally created in markdown, a VSCode extension by 'yzane' was used to generate the HTML document
-<a href="https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf">Check out the VSCode Markdown to PDF extension</a>
+The notes were originally created in markdown, a VSCode extension by 'yzane' was used to generate the HTML page. Check it out 
+<a href="https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf">here</a>
 ## Technologies Used
 - HTML/CSS
 - JavaScript (React)
