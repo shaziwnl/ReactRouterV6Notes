@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ReactRouterNotes.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="react-router-v6-notes">React Router V6 Notes</h2>
+<pre class="hljs"><code><div>Basic Setup
+In app.js -&gt; 
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">app</span> </span>{
+	<span class="hljs-keyword">return</span> (
+        &lt;BrowserRouter&gt;
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;SignUp /&gt;} /&gt;
+                &lt;Route path="login" element={&lt;Login /&gt;} /&gt;
+                &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+            &lt;/ Routes&gt;
+        &lt;/ BrowserRouter&gt;
+	)
+}
+</div></code></pre>
+<h3 id="route-params">Route Params</h3>
+<pre class="hljs"><code><div>&lt;Route path=<span class="hljs-string">"/page/:id"</span> element={&lt;Component /&gt;} /&gt; 
+<span class="hljs-comment">// The ':id' makes this a param</span>
+<span class="hljs-comment">// Multiple params</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/page/:id/:name/:mood"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">Component</span> /&gt;</span>} /&gt;</span> 
+</div></code></pre>
+<h3 id="useparams-hook">useParams Hook</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { useParams } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-router-dom"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">VanDetail</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> params = useParams();
+    <span class="hljs-comment">// Assume we visited /page/2 (Assume we have a "/page/:id" route)</span>
+    <span class="hljs-built_in">console</span>.log(params.id) <span class="hljs-comment">// logs "2" to the console</span>
+}
+
+<span class="hljs-comment">// Fetching data for a specific id</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">VanDetail</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> params = useParams();
+    <span class="hljs-keyword">const</span> [vanData, setVanData] = useState(<span class="hljs-literal">null</span>);
+
+    useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        fetch(<span class="hljs-string">`backend/users/<span class="hljs-subst">${params.id}</span>`</span>)
+            .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.json())
+            .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> setData(data))
+    }, [params.id]);
+
+    <span class="hljs-comment">// We put this in a useEffect to avoid infinite re-renders</span>
+    <span class="hljs-comment">// We have params.id as a dependency but we don't need it (I think)</span>
+}
+</div></code></pre>
+<h3 id="nested-routes">Nested Routes</h3>
+<pre class="hljs"><code><div>&lt;Route path=<span class="hljs-string">"/host"</span> element={&lt;Dashboard /&gt;}&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/host/income"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">Income</span> /&gt;</span>} /&gt;</span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/host/reviews"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">Reviews</span> /&gt;</span>} /&gt;</span>
+&lt;<span class="hljs-regexp">/Route&gt;
+</span></div></code></pre>
+<h3 id="outlet">Outlet</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { Outlet } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-router-dom"</span>
+<span class="hljs-comment">// Suppse we have the same routes as above, then, in Dashboard.jsx</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Dashboard</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// Whatever you want</span>
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">nav</span>&gt;</span>Add a navbar maybe<span class="hljs-tag">&lt;/<span class="hljs-name">nav</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">Outlet</span> /&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span>Add a footer maybe<span class="hljs-tag">&lt;/<span class="hljs-name">footer</span>&gt;</span>
+        <span class="hljs-tag">&lt;/&gt;</span></span>
+    )
+}
+What <span class="hljs-keyword">this</span> will <span class="hljs-keyword">do</span> is – it will display the dashboard content on all the routes
+<span class="hljs-comment">// YOU NEED AN OUTLET IN THE PARENT COMPONENT/ROUTE</span>
+<span class="hljs-comment">// WHICH WILL THEN MATCH THE CHILD COMPONENT/ROUTE</span>
+Example - on the /host/income route, we have the dashboard and the income elements displayed
+</div></code></pre>
+<h5 id="note---nesting-is-only-useful-if-you-have-some-shared-ui-between-those-routes-eg---a-navbar-a-header-a-footer-etc">Note - Nesting is only useful if you have some shared UI between those routes (eg - a navbar, a header, a footer, etc.)</h5>
+<h3 id="better-nested-routes">Better Nested Routes</h3>
+<pre class="hljs"><code><div>&lt;Route path=<span class="hljs-string">"host"</span> element={&lt;HostLayout /&gt;}&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">index</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">Dashboard</span> /&gt;</span>} /&gt;</span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"income"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">Income</span> /&gt;</span>} /&gt;</span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"reviews"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">Reviews</span> /&gt;</span>} /&gt;</span>
+&lt;<span class="hljs-regexp">/Route&gt;
+In this case, the HostLayout will be displayed on every route
+while the dashboard component is the index route
+</span></div></code></pre>
+<h3 id="absolute-vs-relative-paths">Absolute vs Relative Paths</h3>
+<pre class="hljs"><code><div>Routes starting <span class="hljs-keyword">with</span> <span class="hljs-string">'/'</span> are absolute
+Routes that <span class="hljs-keyword">do</span> not begin <span class="hljs-keyword">with</span> <span class="hljs-string">'/'</span> are relative to the parent route (<span class="hljs-keyword">this</span> is usually used <span class="hljs-keyword">in</span> nested routes)
+
+&lt;Route path=<span class="hljs-string">"/"</span> /&gt;
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/login"</span> /&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>= <span class="hljs-string">"/login/admin"</span> /&gt;</span></span>
+<span class="hljs-comment">// These are absolute paths</span>
+
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"login"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">Route</span>&gt;</span></span>
+<span class="hljs-comment">// Here, the login route is relative to the "/" absolute route</span>
+</div></code></pre>
+<h3 id="navlinks">NavLinks</h3>
+<p>Navlinks are a solution such that if we are on a specific link, then we can pass isActive and
+isPending properties to determine className and style properties of the link,
+just use NavLink instead of Link to create this effect<p>
+<pre class="hljs"><code><div>&lt;NavLink 
+    to=<span class="hljs-string">"/host"</span>
+    className={({isActive}) =&gt; isActive ? <span class="hljs-string">"active-link"</span> : <span class="hljs-literal">null</span>}
+&gt;
+    Host    
+&lt;<span class="hljs-regexp">/NavLink&gt;
+There is also an isPending and isTransitioning property which can be used
+Instead of classname, we can directly use style and use the same isActive,
+isPending and isTransitioning properties.
+</span></div></code></pre>
+<h5 id="a-problem---navlinks-match-all-active-routes-so-we-would-have-the-active-link-stlye-applied-to-all-the-routes-such-as--and-host-in-the-above-example">A PROBLEM - Navlinks match all active routes, so we would have the active-link stlye applied to all the routes such as / and /host in the above example</h5>
+<h5 id="what-we-want-is-to-have-the-matching-to-end-at-a-particular-point-if-a-more-rested-route-matches-the-url-solution-the-%22end%22-prop">What we want is to have the matching to end at a particular point if a more rested route matches the URL. Solution? the &quot;end&quot; prop</h5>
+<pre class="hljs"><code><div>&lt;NavLink 
+    to=<span class="hljs-string">"/host"</span>
+    end
+    className={({isActive}) =&gt; isActive ? <span class="hljs-string">"active-link"</span> : <span class="hljs-literal">null</span>}&gt;
+    Host    
+&lt;<span class="hljs-regexp">/NavLink&gt;
+Now, if a more rested route matches, the /</span>host route will not match, therefore we will <span class="hljs-keyword">get</span> the desired styling
+</div></code></pre>
+<h3 id="relative-to-path-vs-relative-to-route">Relative to path vs Relative to route</h3>
+<pre class="hljs"><code><div>Lets say you have the following routes
+&lt;Route to=<span class="hljs-string">"host"</span>&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"something"</span> /&gt;</span></span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"something/:id"</span> /&gt;</span></span>
+&lt;<span class="hljs-regexp">/Route&gt;
+
+/</span><span class="hljs-regexp">/ In host/</span>something/<span class="hljs-function"><span class="hljs-params">id</span> =&gt;</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">".."</span>&gt;</span>Something<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span></span> <span class="hljs-comment">// This will take you to /host instead of /host/something as the link is relative to the route heirarchy</span>
+
+<span class="hljs-comment">// To get the desired functionality, we need</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Link</span>
+    <span class="hljs-attr">to</span>=<span class="hljs-string">".."</span>
+    <span class="hljs-attr">relative</span>=<span class="hljs-string">"path"</span>&gt;</span>
+    Something
+<span class="hljs-tag">&lt;/<span class="hljs-name">Link</span>&gt;</span></span>
+<span class="hljs-comment">// We have made the link relative to the path instead of the route so we get what we want</span>
+</div></code></pre>
+<h3 id="hook-%E2%80%93-useoutletcontext">Hook – useOutletContext</h3>
+<pre class="hljs"><code><div>If you want to pass state (context) to an Outlet
+<span class="hljs-comment">// In the parent component =&gt;</span>
+&lt;Outlet context={ [data, setData] } /&gt;
+
+<span class="hljs-comment">// In the child component =&gt;</span>
+<span class="hljs-keyword">import</span> { useOutletContext } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-router-dom"</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">ChildComponent</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> [data, setData] = useOutletContext();
+
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{data}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
+    )
+}
+</div></code></pre>
+<h3 id="searchquery-params">Search/Query Params</h3>
+<pre class="hljs"><code><div>If you want to filter, sort, paginate, etc. then you might want to use query params which appear like
+www.example.com/?type=something&amp;filter=anotherthing
+<span class="hljs-comment">// Here type and filter are the query parameters</span>
+</div></code></pre>
+<h3 id="hook-%E2%80%93-usesearchparams">Hook – useSearchParams</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Assume we have the url - www.example.com/?type=happy&amp;filter=none</span>
+Const [searchParam, setSearchParam] = useSearchParams()
+Const typeFilter = searchParams.get(<span class="hljs-string">"type"</span>)
+<span class="hljs-built_in">console</span>.log(typeFilter) <span class="hljs-comment">// logs "happy" to the console</span>
+</div></code></pre>
+<h3 id="filtering-using-search-params">Filtering using search params</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">const</span> colourFilter = searchParams.get(<span class="hljs-string">"type"</span>)
+<span class="hljs-comment">// Suppose you have an array called elements and you want to filter based on colour</span>
+<span class="hljs-keyword">const</span> displayed = colourFilter ? elements.filter(<span class="hljs-function">(<span class="hljs-params">element</span>) =&gt;</span> element.colour == colourFilter) : elements 
+<span class="hljs-keyword">const</span> displayedMapped = displayed.map(<span class="hljs-function">(<span class="hljs-params">element</span>) =&gt;</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{element.colour}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>)
+</div></code></pre>
+<h3 id="buttons-to-filter">Buttons to filter</h3>
+<pre class="hljs"><code><div>&lt;Link to=<span class="hljs-string">"?type=happy"</span>&gt;Happy&lt;<span class="hljs-regexp">/Link&gt;
+
+/</span><span class="hljs-regexp">/ Clear Filters
+&lt;Link to="."&gt; Clear Filters &lt;/</span>Link&gt; 
+
+<span class="hljs-comment">// Better method - Using the setSearchParams setter function</span>
+<span class="hljs-comment">// setSearchParams is extremely flexible so we can do the following and they are all equivalent</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setSearchParams("?type=happy")}&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setSearchParams("type=happy")}&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span> <span class="hljs-comment">// Without question mark</span>
+
+<span class="hljs-comment">// Best Practice =&gt;</span>
+<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =&gt;</span> setSearchParams({ type: "happy" })}&gt;<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
+
+<span class="hljs-comment">// Note, we can use buttons and links to achieve the same effect</span>
+</div></code></pre>
+<h3 id="state-in-links">State in Links</h3>
+<pre class="hljs"><code><div>&lt;Link to=<span class="hljs-string">"/"</span> state={ { <span class="hljs-attr">key</span>: value, <span class="hljs-attr">key2</span>: value2} } /&gt; <span class="hljs-comment">// See below for how to get this state</span>
+</div></code></pre>
+<h3 id="hook---uselocation">Hook - useLocation</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// If you passed in state in a link, you can get that state using the useLocation hook</span>
+<span class="hljs-keyword">const</span> location = useLocation();
+<span class="hljs-built_in">console</span>.log(location) <span class="hljs-comment">// logs {pathname: "xyz/xyz", search: "", hash: "", state: {key: value, key2: value2}, key: "xyz"}</span>
+<span class="hljs-comment">// This can be useful for LOTS of reasons</span>
+</div></code></pre>
+<h3 id="custom-404-page">Custom 404 Page</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// We need a 'catch-all' route if a non-existent route is visited</span>
+&lt;Routes&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/home"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">Home</span> /&gt;</span>} /&gt;</span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">About</span> /&gt;</span>} /&gt;</span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"*"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">h1</span>&gt;</span>Page not found!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>} /&gt;</span> 
+&lt;<span class="hljs-regexp">/Routes&gt;
+/</span><span class="hljs-regexp">/ NOTE - React router is smart enough that it will first check all the routes with the URL and only if no route matches will it 
+/</span><span class="hljs-regexp">/ go to the catch-all route, but it is best to put it at the bottom anyway
+</span></div></code></pre>
+<h3 id="loaders">Loaders</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// In general -&gt; Better to use loader instead of useEffects to fetch data</span>
+<span class="hljs-comment">// React can delay the rendering of the page until the loader is done </span>
+<span class="hljs-comment">// First get data, then go to the route is the main idea</span>
+<span class="hljs-comment">// No requirement of a loading or error state management</span>
+<span class="hljs-comment">// First, we have to "subscribe" to this feature</span>
+<span class="hljs-comment">// Replace</span>
+&lt;Routes&gt;
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/home"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">Home</span> /&gt;</span>} /&gt;</span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">About</span> /&gt;</span>} /&gt;</span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"*"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">h1</span>&gt;</span>Page not found!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>} /&gt;</span> 
+&lt;<span class="hljs-regexp">/Routes&gt;
+
+/</span><span class="hljs-regexp">/ With (everything between &lt;Routes&gt; &lt;Routes /</span>&gt;)
+<span class="hljs-keyword">const</span> router = createBrowserRouter(createRouteFromElements(
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/home"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">Home</span> /&gt;</span>} loader={homeLoader} /&gt;</span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">About</span> /&gt;</span>} /&gt;</span>
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"*"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">h1</span>&gt;</span>Page not found!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>} /&gt;</span> 
+))
+<span class="hljs-comment">// Put a loader in whichever route you are fetching data</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">RouterProvider</span> <span class="hljs-attr">router</span>=<span class="hljs-string">{router}</span> /&gt;</span></span>
+    )
+}
+
+<span class="hljs-comment">// Remember to import RouterProvider, createBrowserRouter, createRouteFromElements</span>
+</div></code></pre>
+<h3 id="loader-setup">Loader Setup</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// In the component where you are fetching data =&gt;</span>
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loader</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"data here"</span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hi!<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
+}
+
+<span class="hljs-comment">// In App.jsx (or wherever you have your routes)</span>
+<span class="hljs-keyword">import</span> Component, { loader <span class="hljs-keyword">as</span> componentLoader } <span class="hljs-keyword">from</span> <span class="hljs-string">"./components/Component"</span>
+
+<span class="hljs-keyword">const</span> router = createBrowserRouter(createRouteFromElements(
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/home"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&lt;<span class="hljs-attr">Component</span> /&gt;</span>} loader={componentLoader} /&gt;</span>
+))
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">RouterProvider</span> <span class="hljs-attr">router</span>=<span class="hljs-string">{router}</span> /&gt;</span></span>
+    )
+}
+</div></code></pre>
+<h3 id="hook---useloaderdata">Hook - useLoaderData</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// In Component.jsx =&gt;</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loader</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">"data wohoo!"</span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> data = useLoaderData()
+    <span class="hljs-built_in">console</span>.log(data) <span class="hljs-comment">// Logs "data wohoo!" to the console</span>
+    <span class="hljs-comment">// (Assuming everything is correct in App.jsx)</span>
+}
+</div></code></pre>
+<h3 id="error-handling-with-loaders-and-routes">Error handling with loaders and routes</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// If your Component.jsx throws for any reason (failed to get data, etc.)</span>
+<span class="hljs-comment">// Then you can pass an errorElement prop to the route</span>
+&lt;Route path=<span class="hljs-string">"/home"</span> 
+    element={&lt;Component /&gt;} 
+    loader={componentLoader}
+    errorElement={&lt;h1&gt;There was an error&lt;<span class="hljs-regexp">/h1&gt;} /</span>&gt;
+<span class="hljs-comment">// Now if Component throws, we will see an h1 with the message there was an err</span>
+</div></code></pre>
+<p>A problem - We want to give actual information about the error
+Solution - useRouteError hook</p>
+<h3 id="hook---userouteerror-only-available-with-data-routers-loaders">Hook - useRouteError (Only available with data routers (loaders))</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Instead of errorElement={&lt;h1&gt;Error occurred&lt;/h1&gt;}</span>
+<span class="hljs-comment">// Use an Error component</span>
+<span class="hljs-comment">// In Error.jsx =&gt;</span>
+<span class="hljs-keyword">import</span> { useRouteError } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-router-dom"</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Error</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> error = useRouteError()
+    <span class="hljs-built_in">console</span>.log(error) <span class="hljs-comment">// logs {message: "message", statusText: "text", status: number}</span>
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{error.message}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>
+    )
+}
+<span class="hljs-comment">// NOTE - We could have the errorElement prop in a parent route and it would still work in the child routes (play around with this lol)</span>
+</div></code></pre>
+<h3 id="protected-routes">Protected Routes</h3>
+<p>Central idea - User should be logged in to access a specific page/route</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Solution - Wrap the route you want to protect in an AuthRequired layout route </span>
+<span class="hljs-comment">// which either renders the Outlet or redirects the user to the home/login page</span>
+
+<span class="hljs-comment">// In AuthRequired.jsx =&gt;</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">AuthRequired</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> isLoggedIn = <span class="hljs-literal">true</span>; <span class="hljs-comment">// fake auth for now</span>
+    <span class="hljs-keyword">if</span> (!isLoggedIn) {
+        <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Navgate</span> <span class="hljs-attr">to</span>=<span class="hljs-string">"/login"</span> /&gt;</span></span>
+    } 
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Outlet</span> /&gt;</span></span>
+}
+<span class="hljs-comment">// NOTE - This approach is without data loaders' functionalities</span>
+</div></code></pre>
+<h3 id="navigate-component">Navigate Component</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Enables us to navigate a user from one route to another</span>
+&lt;Navigate to=<span class="hljs-string">"wherever"</span> /&gt;
+</div></code></pre>
+<h3 id="approach-using-loaders">Approach using loaders</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loader</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> isLoggedIn = <span class="hljs-literal">false</span>; <span class="hljs-comment">// fake auth for now again</span>
+    <span class="hljs-keyword">if</span> (!isLoggedIn) {
+        <span class="hljs-keyword">return</span> redirect(<span class="hljs-string">"/login"</span>) <span class="hljs-comment">// we can also throw redirect("/login")</span>
+    } <span class="hljs-comment">// Note, redirect is not the same as Navigate as we are not in a component here</span>
+    <span class="hljs-comment">// Fetch your data now and do whatever you want</span>
+}
+</div></code></pre>
+<h3 id="disadvantage-of-using-authentication-in-loaders">Disadvantage of using authentication in loaders</h3>
+<p>We have to include authentication in EVERY loader function <br>
+Why? because loaders run parallely and not first in the parent, then in the child and so on <br>
+This creates the requirement to have authentication in every loader so that sensitive info/data is not exposed if the child route gets some data that should not be accessible</p>
+<h3 id="hook---usenavigate">Hook - useNavigate</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Remember, this is different from redirect as hooks can be used at the top level of components</span>
+<span class="hljs-comment">// It will not be useful outside of the component</span>
+<span class="hljs-keyword">const</span> navigate = useNavigate()
+navigate(<span class="hljs-string">"/dashboard"</span>, { <span class="hljs-attr">replace</span>: <span class="hljs-literal">true</span> }) <span class="hljs-comment">// What does replace do?</span>
+<span class="hljs-comment">// Im not quite sure :D </span>
+</div></code></pre>
+<h3 id="forms-and-actions">Forms and Actions</h3>
+<p>Forms in react are... hard to manage, but we actually have access to a Form element in react router
+(If we are using loaders and data routes)</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Replace &lt;form&gt;&lt;/form&gt; with &lt;Form method="post"&gt;&lt;/Form&gt;</span>
+<span class="hljs-comment">// In Component.jsx =&gt;</span>
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">action</span>(<span class="hljs-params">obj</span>) </span>{
+    <span class="hljs-comment">// Do something, You have access to an object which has the following structure</span>
+    <span class="hljs-comment">// {request: Request {}, params: {}}</span>
+    <span class="hljs-keyword">const</span> formData = <span class="hljs-keyword">await</span> obj.request.formData();
+    <span class="hljs-keyword">const</span> email = formData.get(<span class="hljs-string">"email"</span>); <span class="hljs-comment">// name property of the input (IMPORTANT)</span>
+    <span class="hljs-keyword">const</span> password = formData.get(<span class="hljs-string">"password"</span>);
+    <span class="hljs-built_in">console</span>.log(email, password) <span class="hljs-comment">// Works as expected</span>
+}
+
+<span class="hljs-comment">// In App.jsx =&gt;</span>
+<span class="hljs-keyword">import</span> { action <span class="hljs-keyword">as</span> loginAction } <span class="hljs-keyword">from</span> <span class="hljs-string">"./components/Login"</span>
+&lt;Route
+    path=<span class="hljs-string">"/login"</span>
+    element={&lt;Login /&gt;}
+    loader={<span class="hljs-comment">/* loader here */</span>}
+    action={loginAction}
+/&gt;
+</div></code></pre>
+<h3 id="hook---useactiondata">Hook - useActionData</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// When using data routes, we can useActionData like we would useLoaderData</span>
+<span class="hljs-keyword">const</span> data = useActionData(); <span class="hljs-comment">// gives us the whatever was returned by the action function :) </span>
+</div></code></pre>
+<h3 id="hook---usenavigation">Hook - useNavigation</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// Consists of many properties, one of which is state, has "idle" and "submitting" states</span>
+<span class="hljs-comment">// We do not need to track the state of the application because of this hook :D</span>
+<span class="hljs-keyword">const</span> navigation = useNavigation()
+<span class="hljs-keyword">const</span> status = navigation.state()
+</div></code></pre>
+<h4>Not adding in detail usage since it is pretty intuitive and documentation is good</h4>
+<h2 id="suspense">Suspense</h2>
+<p>Sometimes, using data routes leads to a poor UI even though it improves the developer experience
+This is why we may opt to use Suspense</p>
+<h3 id="await-defer">Await, defer</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">import</span> { defer, Await } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-router-dom"</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loader</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> promise = getData(); <span class="hljs-comment">// Not awaited, so we have a promise</span>
+    <span class="hljs-keyword">return</span> defer({<span class="hljs-attr">data</span>: dataPromise});
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Component</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> loaderData = useLoaderData();
+    <span class="hljs-built_in">console</span>.log(loaderData); <span class="hljs-comment">// Logs {promiseData: Promise {}} to the console</span>
+
+    <span class="hljs-keyword">return</span> (
+        <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Await</span> <span class="hljs-attr">resolve</span>=<span class="hljs-string">{loaderData.weather}</span>&gt;</span>
+            {(loadedWeather) =&gt; {
+                const iconUrl =
+                    `http://openweathermap.org/img/wn/${loadedWeather.weather[0].icon}@2x.png`
+                return (
+                    <span class="hljs-tag">&lt;&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>{loadedWeather.main.temp}ºF<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span>
+                        <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">{iconUrl}</span> /&gt;</span>
+                    <span class="hljs-tag">&lt;/&gt;</span></span>
+                )
+            }}
+        &lt;<span class="hljs-regexp">/Await&gt;
+    )
+}
+/</span><span class="hljs-regexp">/ The above example has been taken from scrimba.com
+</span></div></code></pre>
+<h3 id="suspense-component">Suspense component</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">// The above will give us an error... for now</span>
+<span class="hljs-keyword">import</span> React, { Suspense } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>
+<span class="hljs-comment">// We can simple wrap whatever we are awaiting and get the desired result</span>
+&lt;React.Suspense <span class="hljs-comment">/* or just Suspense since we imported it */</span> fallback={&lt;h1&gt;Loading...&lt;<span class="hljs-regexp">/h1&gt;} /</span>* fallback is just the loading state *<span class="hljs-regexp">/&gt;
+    &lt;Await resolve={loaderData.weather}&gt;
+        {(loadedWeather) =&gt; {
+            const iconUrl =
+                `http:/</span><span class="hljs-regexp">/openweathermap.org/img</span><span class="hljs-regexp">/wn/</span>${loadedWeather.weather[<span class="hljs-number">0</span>].icon}@<span class="hljs-number">2</span>x.png<span class="hljs-string">`
+            return (
+                &lt;&gt;
+                    &lt;h3&gt;{loadedWeather.main.temp}ºF&lt;/h3&gt;
+                    &lt;img src={iconUrl} /&gt;
+                &lt;/&gt;
+            )
+        }}
+    &lt;/Await&gt;
+&lt;/React.Suspense&gt;
+</span></div></code></pre>
+
+</body>
+</html>
