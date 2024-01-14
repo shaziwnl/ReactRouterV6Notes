@@ -14,8 +14,8 @@
 <p>Feel free to print the dark version of the html page to get dark mode pdf</p>
 
 ## Acknowledgements
-The topics covered in these notes have been heavily inspired by Scrimba's React Router V6 course
-<a href="https://scrimba.com/learn/reactrouter6">Check out Scrimba</a> <br>
+The topics covered in these notes have been heavily inspired by Scrimba's React Router V6 course. Check out
+<a href="https://scrimba.com/learn/reactrouter6">Scrimba</a> <br>
 The notes were originally created in markdown, a VSCode extension by 'yzane' was used to generate the HTML document
 <a href="https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf">Check out the VSCode Markdown to PDF extension</a>
 ## Technologies Used
