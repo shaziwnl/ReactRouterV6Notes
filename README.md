@@ -15,7 +15,7 @@
 
 ## Acknowledgements
 The topics covered in these notes have been heavily inspired by Scrimba's React Router V6 course
-<a href="https://scrimba.com/learn/reactrouter6">
+<a href="https://scrimba.com/learn/reactrouter6">Check out Scrimba</a>
 ## Technologies Used
 - HTML/CSS
 - JavaScript (React)
