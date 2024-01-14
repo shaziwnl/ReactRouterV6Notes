@@ -10,7 +10,7 @@
 - Markdown
 - HTML
 - PDF
-<p>Feel free to print the dark version of the html page to get dark mode pdf</p>
+<p>Feel free to print the dark version of the HTML page to get dark mode pdf</p>
 
 ## Acknowledgements
 The topics covered in these notes have been heavily inspired by Scrimba's React Router V6 course. Check out
@@ -19,5 +19,5 @@ The notes were originally created in markdown, a VSCode extension by 'yzane' was
 <a href="https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf">here</a>
 
 ## Contact
-Sharang Goel: sharang.goel@uwaterloo.ca \
+Sharang Goel: sharang.goel@uwaterloo.ca
 
