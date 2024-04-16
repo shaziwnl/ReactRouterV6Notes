@@ -1,9 +1,4 @@
 # The only react router V6 notes you will ever need 
-
-## Table of Contents
-* [Files Provided](#files-provided)
-* [Acknowledgements](#acknowledgements)
-* [Contact](#contact)
 <!-- * [License](#license) -->
 
 ## Files Provided
